@@ -27,6 +27,9 @@
 			</li>
 			<li class:active={$page.url.pathname === '/symptoms'}>
 				<a sveltekit:prefetch href="/symptoms">Symptoms</a>
+      </li>
+			<li class:active={$page.url.pathname === '/emergency_contact'}>
+				<a sveltekit:prefetch href="/emergency_contact">Emergency Contact</a>
 			</li>
 		</ul>
 		<svg viewBox="0 0 2 3" aria-hidden="true">
@@ -67,7 +70,8 @@
 	nav {
 		display: flex;
 		justify-content: center;
-		--background: rgba(255, 255, 255, 0.7);
+		--background: #bec6ff;
+		--text-color: #444444;
 	}
 
 	svg {
