@@ -1,5 +1,8 @@
 <script>
     import { Card, CardText, CardActions, TextField, Button, MaterialApp } from 'svelte-materialify';
+    import { onMount } from 'svelte';
+
+    let firestore = null;
 
     const phoneRules = [
     (v) => !!v || 'Required',
@@ -18,8 +21,12 @@
         },
     ];
 
+    onMount(async () => {
+      firestore = await import('$lib/firestore');
+    });
+
 </script>
-  
+
   <MaterialApp>
     <Card outlined style="max-width:2000px;">
 		<div class="pl-4 pr-4 pt-3">
@@ -27,8 +34,8 @@
 		  <br />
 		</div>
 		<CardText>
-		  Input the details of the emergency contact you would like to add. 
-          If you elect to have bystanders contact your emergency contacts during a sensory overload, 
+		  Input the details of the emergency contact you would like to add.
+          If you elect to have bystanders contact your emergency contacts during a sensory overload,
           this individual will be contacted via text.
 		</CardText>
         <CardActions>

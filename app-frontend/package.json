@@ -39,6 +39,7 @@
     "@fontsource/fira-mono": "^4.5.0",
     "@lukeed/uuid": "^2.0.0",
     "cookie": "^0.4.1",
+    "firebase": "^9.6.11",
     "svelte-materialify": "^0.3.11"
   }
 }

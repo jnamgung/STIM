@@ -1,5 +1,9 @@
 <script>
 	import { Card, CardText, CardActions, Button, MaterialApp, Checkbox, Row, Col } from 'svelte-materialify';
+  import { onMount } from 'svelte';
+
+  let firestore = null;
+
 	var severity_level = "High";
 	var symptoms = [
 		{
@@ -19,8 +23,12 @@
 			'symptom': "Symptom 4"
 		},
 	];
+
+  onMount(async () => {
+    firestore = await import('$lib/firestore');
+  });
 </script>
-  
+
 <MaterialApp>
 	<Card outlined style="max-width:2000px;">
 		<div class="pl-4 pr-4 pt-3">
@@ -41,5 +49,5 @@
             {/each}
         </div>
 	  </Card>
-	
+
 </MaterialApp>
