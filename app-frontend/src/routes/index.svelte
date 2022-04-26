@@ -1,4 +1,5 @@
 <script>
+	import { page } from '$app/stores';
 	import { Card, CardText, CardActions, Button, MaterialApp } from 'svelte-materialify';
 </script>
   
@@ -9,10 +10,16 @@
 		  <span class="text-h5 mb-2">This is the home page:</span>
 		  <br />
 		</div>
-		<CardText>
-		  Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit, qui quaerat
-		  rerum incidunt nisi ducimus?
-		</CardText>
+		<CardActions>
+			<a sveltekit:prefetch href="/overstimulated">
+			<Button block class="red white-text">
+					Press this button if you're feeling overstimulated!
+			</Button>
+			</a>
+		</CardActions>
+		<CardActions>
+			
+		</CardActions>
 	  </Card>
 	
 </MaterialApp>
