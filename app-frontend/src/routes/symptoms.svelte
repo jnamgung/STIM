@@ -29,8 +29,8 @@
   });
 
   function onSubmit(e) {
-	  console.log(e);
 	  console.log(customSymptom);
+	  console.log(symptoms);
   }
 </script>
 
@@ -49,7 +49,7 @@
 				{#each symptoms as symptom}
 					<Row class="align-self-center">
 						<Col class="align-self-center">
-							<Checkbox checked={symptom.checked} value={symptom.symptom}>{symptom.symptom}</Checkbox>
+							<Checkbox bind:checked={symptom.checked} value={symptom.symptom}>{symptom.symptom}</Checkbox>
 						</Col>
 					</Row>
 				{/each}
