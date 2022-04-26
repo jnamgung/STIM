@@ -10,7 +10,9 @@
 		  <br />
 		</div>
 		<CardActions>
+			<a sveltekit:prefetch href="/message">
 			<Button block>I am someone nearby.</Button>
+			</a>
         </CardActions>
         <CardActions>
             <Button block>I am a first responder.</Button>
