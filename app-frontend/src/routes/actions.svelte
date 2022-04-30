@@ -44,8 +44,8 @@
   });
 
   function onSubmit(e) {
-	  console.log(e);
     console.log(customAction);
+    console.log(actions);
   }
 </script>
 
@@ -70,7 +70,7 @@
 				{#each actions as action}
 					<Row class="align-self-center">
 						<Col class="align-self-center">
-							<Checkbox color="#bec6ff" checked={action.checked} value={action.action}>{action.action}</Checkbox>
+							<Checkbox color="#bec6ff" bind:checked={action.checked} value={action.action}>{action.action}</Checkbox>
 						</Col>
 					</Row>
 				{/each}
