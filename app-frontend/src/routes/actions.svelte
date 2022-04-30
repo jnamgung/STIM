@@ -49,6 +49,13 @@
   }
 </script>
 
+<style>
+  .themed-checkbox :active {
+    background-color: black;
+    color: black;
+  }
+</style>
+
 <MaterialApp>
   <Card outlined style="max-width:2000px;">
     <div class="pl-4 pr-4 pt-3">
@@ -63,16 +70,16 @@
 				{#each actions as action}
 					<Row class="align-self-center">
 						<Col class="align-self-center">
-							<Checkbox checked={action.checked} value={action.action}>{action.action}</Checkbox>
+							<Checkbox color="#bec6ff" checked={action.checked} value={action.action}>{action.action}</Checkbox>
 						</Col>
 					</Row>
 				{/each}
 				<Row class="align-self-center">
 					<Col class="align-self-center">
-						<TextField type="text" bind:value={customAction} placeholder="Add your own..."/>
+						<TextField type="text"bind:value={customAction} placeholder="Add your own..."/>
 					</Col>
 				</Row>
-				<Button type="submit" block class="primary-color">Submit</Button>
+				<Button type="submit" block style="background-color:#bec6ff;">Submit</Button>
 			</div>
 		</form>
     </Card>

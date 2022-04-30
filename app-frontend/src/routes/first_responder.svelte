@@ -57,11 +57,11 @@
 				{#each symptoms as symptom}
 					<Row class="align-self-center">
 						<Col class="align-self-center">
-							<Checkbox checked={symptom.checked} value={symptom.symptom}>{symptom.symptom}</Checkbox>
+							<Checkbox color="#bec6ff" checked={symptom.checked} value={symptom.symptom}>{symptom.symptom}</Checkbox>
 						</Col>
 					</Row>
 				{/each}
-				<Button type="submit" block class="primary-color">Next</Button>
+				<Button type="submit" block style="background-color:#bec6ff;">Next</Button>
 			</div>
 		</form>
 	  </Card>

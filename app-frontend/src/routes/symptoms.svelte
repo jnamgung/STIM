@@ -60,7 +60,7 @@
 				{#each symptoms as symptom}
 					<Row class="align-self-center">
 						<Col class="align-self-center">
-							<Checkbox checked={symptom.checked} value={symptom.symptom}>{symptom.symptom}</Checkbox>
+							<Checkbox color="#bec6ff" checked={symptom.checked} value={symptom.symptom}>{symptom.symptom}</Checkbox>
 						</Col>
 					</Row>
 				{/each}
@@ -69,7 +69,7 @@
 						<TextField type="text" bind:value={customSymptom} placeholder="Add your own..."/>
 					</Col>
 				</Row>
-				<Button type="submit" block class="primary-color">Submit</Button>
+				<Button type="submit" block style="background-color:#bec6ff;">Submit</Button>
 			</div>
 		</form>
 	  </Card>
