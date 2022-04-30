@@ -28,10 +28,6 @@ jobs:
         cd app-frontend
         npm i
         npm run build
-        cd ..
-        cd functions
-        npm i
-
     # Install firebase tools and deploy to firebase
     # using the token we created earlier
     - name: Firebase Deploy
