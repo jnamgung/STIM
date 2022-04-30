@@ -33,6 +33,9 @@
 			<li class:active={$page.url.pathname === '/emergency_contact'}>
 				<a sveltekit:prefetch href="/emergency_contact">Emergency Contact</a>
 			</li>
+      <li class:active={$page.url.pathname === '/emergency_responders'}>
+        <a sveltekit:prefetch href='/emergency_responders'>Emergency Responders</a>
+      </li>
 			<li class:active={$page.url.pathname === '/first_responder'}>
 				<a sveltekit:prefetch href="/first_responder">First Responder</a>
 			</li>
