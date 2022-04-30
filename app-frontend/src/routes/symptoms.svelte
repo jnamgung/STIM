@@ -8,19 +8,31 @@
 	var symptoms = [
 		{
 			'checked': false,
-			'symptom': "Symptom 1"
-		},
-		{
-			'checked': true,
-			'symptom': "Symptom 2"
+			'symptom': "Fidgeting and restlessness"
 		},
 		{
 			'checked': false,
-			'symptom': "Symptom 3"
+			'symptom': "Irritability and anger"
 		},
 		{
-			'checked': true,
-			'symptom': "Symptom 4"
+			'checked': false,
+			'symptom': "Digestive distress (cramps, nausea, vomiting)"
+		},
+		{
+			'checked': false,
+			'symptom': "Extreme Perspiration"
+		},
+		{
+			'checked': false,
+			'symptom': "Great difficulty in communication"
+		},
+		{
+			'checked': false,
+			'symptom': "Heightened sensitivity to bright lights"
+		},
+		{
+			'checked': false,
+			'symptom': "Heightened sensitivity to loud noises"
 		},
 	];
 	var customSymptom = "";
@@ -41,15 +53,14 @@
 		  <br />
 		</div>
 		<CardText>
-		  Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit, qui quaerat
-		  rerum incidunt nisi ducimus?
+			Select the symptoms you presonally face. You can also enter a custom symptom at the end.
 		</CardText>
 		<form on:submit|preventDefault={onSubmit}>
 			<div class="pl-4 pr-4 pb-3 pt-3">
 				{#each symptoms as symptom}
 					<Row class="align-self-center">
 						<Col class="align-self-center">
-							<Checkbox bind:checked={symptom.checked} value={symptom.symptom}>{symptom.symptom}</Checkbox>
+							<Checkbox color="#bec6ff" bind:checked={symptom.checked} value={symptom.symptom}>{symptom.symptom}</Checkbox>
 						</Col>
 					</Row>
 				{/each}
@@ -58,7 +69,7 @@
 						<TextField type="text" bind:value={customSymptom} placeholder="Add your own..."/>
 					</Col>
 				</Row>
-				<Button type="submit" block class="primary-color">Submit</Button>
+				<Button type="submit" block style="background-color:#bec6ff;">Submit</Button>
 			</div>
 		</form>
 	  </Card>

@@ -1,12 +1,11 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import logo from './svelte-logo.svg';
 </script>
 
 <header>
 	<div class="corner">
-		<a href="https://kit.svelte.dev">
-			<img src={logo} alt="SvelteKit" />
+		<a href="/">
+			<h2>STIM</h2>
 		</a>
 	</div>
 
@@ -21,6 +20,9 @@
 			</li>
 			<li class:active={$page.url.pathname === '/another_page'}>
 				<a sveltekit:prefetch href="/another_page">Another Page</a>
+			</li>
+			<li class:active={$page.url.pathname === '/overstimulated'}>
+				<a sveltekit:prefetch href="/overstimulated">Overstimulated</a>
 			</li>
 			<li class:active={$page.url.pathname === '/actions'}>
 				<a sveltekit:prefetch href="/actions">Actions</a>
@@ -52,8 +54,8 @@
 	}
 
 	.corner {
-		width: 3em;
-		height: 3em;
+		width: 10em;
+		height: 4em;
 	}
 
 	.corner a {
@@ -62,12 +64,6 @@
 		justify-content: center;
 		width: 100%;
 		height: 100%;
-	}
-
-	.corner img {
-		width: 2em;
-		height: 2em;
-		object-fit: contain;
 	}
 
 	nav {
