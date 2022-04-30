@@ -7,16 +7,13 @@
 		<div class="pl-4 pr-4 pt-3">
 		  <span class="text-h5 mb-2">Please choose a severity level:</span>
 		  <br />
+		  <br />
 		</div>
-		<CardText>
-		  Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit, qui quaerat
-		  rerum incidunt nisi ducimus?
-		</CardText>
 		<CardActions>
 				<Button block class="red white-text">High</Button>
 		</CardActions>
 		<CardActions>
-			<Button block class="yellow white-text">Medium</Button>
+			<Button block class="brown white-text">Medium</Button>
 		</CardActions>
 		<CardActions>
 			<Button block class="green white-text">Low</Button>

@@ -1,12 +1,11 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import logo from './svelte-logo.svg';
 </script>
 
 <header>
 	<div class="corner">
-		<a href="https://kit.svelte.dev">
-			<img src={logo} alt="SvelteKit" />
+		<a href="/">
+			<h2>STIM</h2>
 		</a>
 	</div>
 
@@ -55,8 +54,8 @@
 	}
 
 	.corner {
-		width: 3em;
-		height: 3em;
+		width: 10em;
+		height: 4em;
 	}
 
 	.corner a {
@@ -65,12 +64,6 @@
 		justify-content: center;
 		width: 100%;
 		height: 100%;
-	}
-
-	.corner img {
-		width: 2em;
-		height: 2em;
-		object-fit: contain;
 	}
 
 	nav {
