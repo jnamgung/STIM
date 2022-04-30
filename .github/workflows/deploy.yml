@@ -4,9 +4,9 @@ name: CI/CD
 # on push or pull request to the master branch
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
 
 # Jobs are a sequence of steps
 jobs:
