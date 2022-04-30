@@ -8,6 +8,17 @@ import {
   Subheader,
 } from 'svelte-materialify';
 
+import { onMount } from 'svelte';
+import { goto } from '$app/navigation';
+import { checkLogin } from '$lib/auth.js';
+
+onMount(() => {
+  checkLogin(
+    (_) => {},
+    () => { goto('/login'); }
+  );
+});
+
 let symptoms = {
   'high': [
     'symptom1',

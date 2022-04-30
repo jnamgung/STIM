@@ -1,6 +1,8 @@
 <script>
     import { Card, CardText, CardActions, TextField, Button, MaterialApp } from 'svelte-materialify';
     import { onMount } from 'svelte';
+    import { goto } from '$app/navigation';
+    import { checkLogin } from '$lib/auth.js';
 
     let firestore = null;
 
@@ -39,6 +41,10 @@
     }
 
     onMount(async () => {
+      checkLogin(
+        (_) => {},
+        () => { goto('/login'); }
+      );
       firestore = await import('$lib/firestore');
     });
 

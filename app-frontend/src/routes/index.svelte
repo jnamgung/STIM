@@ -1,9 +1,22 @@
 <script>
-	import { page } from '$app/stores';
-	import { Card, CardText, CardActions, Button, MaterialApp } from 'svelte-materialify';
+	import { Card, CardActions, Button, MaterialApp } from 'svelte-materialify';
 	import { goto } from '$app/navigation';
+  import { onMount } from 'svelte';
+
+  import { checkLogin } from '$lib/auth.js';
+
+  onMount(() => {
+    checkLogin(
+      (_) => {
+      },
+      () => {
+        goto('/login');
+      }
+    );
+  });
+
 </script>
-  
+
 
 <MaterialApp>
 	<Card outlined style="max-width:2000px;">
@@ -17,5 +30,5 @@
 			</Button>
 		</CardActions>
 	  </Card>
-	
+
 </MaterialApp>
