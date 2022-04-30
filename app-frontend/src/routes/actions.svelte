@@ -6,6 +6,7 @@
 
 
   let firestore = null;
+  let user = null;
 
   var severity_level = "High";
   var actions = [
@@ -40,20 +41,30 @@
   ];
   var customAction = "";
 
-  onMount(async () => {
+  onMount(() => {
     checkLogin(
-      (_) => {
+      async (u) => {
+        firestore = await import('$lib/firestore');
+        user = u;
+        // Load actions
       },
       () => {
         goto('/login');
       }
     );
-    firestore = await import('$lib/firestore');
   });
 
   function onSubmit(e) {
-    console.log(customAction);
-    console.log(actions);
+    const keepActions = actions.filter((m) => m['checked']);
+    Promise.all(keepActions.map(async (v) => {
+      await firestore.addAction(
+        user.uid,
+        v['action'],
+        severity_level
+      );
+    })).then(() => {
+      alert('Actions updated!');
+    });
   }
 </script>
 

@@ -2,6 +2,8 @@ import {
   addDoc,
   collection,
   getDocs,
+  query,
+  where,
 } from 'firebase/firestore';
 
 import { db } from '$lib/firebase';
@@ -11,8 +13,8 @@ export const addEmergencyContact = async (
   first_name,
   last_name,
   relation,
-  email,
   phone,
+  email,
   address
 ) => {
   return addDoc(collection(db, 'emergency_contacts'), {
@@ -26,6 +28,18 @@ export const addEmergencyContact = async (
   });
 }
 
+export const getEmergencyContacts = async (uid) => {
+  let result = [];
+  const querySnapshot = await getDocs(query(
+    collection(db, 'emergency_contacts'),
+    where('user_id', '==', uid),
+  ));
+  querySnapshot.forEach((doc) => {
+    result.push(doc.data());
+  });
+  return result;
+}
+
 export const addAction = async (
   user_id,
   action,
@@ -34,8 +48,34 @@ export const addAction = async (
   return addDoc(collection(db, 'actions'), {
     user_id: user_id,
     action: action,
-    severity: severity
+    severity: severity.toLowerCase(),
   });
+}
+
+export const getActions = async (
+  user_id,
+  severity='all',
+) => {
+  let result = [];
+  let querySnapshot = null;
+  severity = severity.toLowerCase();
+  if (severity === 'all') {
+    querySnapshot = await getDocs(query(
+      collection(db, 'actions'),
+      where('user_id', '==', uid),
+    ));
+  }
+  else {
+    querySnapshot = await getDocs(query(
+      collection(db, 'actions'),
+      where('user_id', '==', uid),
+      where('severity', '==', severity),
+    ));
+  }
+  querySnapshot.forEach((doc) => {
+    result.push(doc.data());
+  });
+  return result;
 }
 
 export const addSymptom = async (

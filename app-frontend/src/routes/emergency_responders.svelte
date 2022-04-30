@@ -12,13 +12,9 @@ import { onMount } from 'svelte';
 import { goto } from '$app/navigation';
 import { checkLogin } from '$lib/auth.js';
 
-onMount(() => {
-  checkLogin(
-    (_) => {},
-    () => { goto('/login'); }
-  );
-});
 
+let firestore = null;
+let user = null;
 let symptoms = {
   'high': [
     'symptom1',
@@ -32,17 +28,19 @@ let symptoms = {
     'symptom1',
   ],
 };
+let emergencyContacts = [];
 
-let emergencyContacts = [
-  {
-    'first_name': 'Jane',
-    'last_name': 'Doe',
-    'relation': 'Mother',
-    'phone': '555-555-5555',
-    'email': 'janedoe@gmail.com',
-    'address': '5000 Forbes Ave. Pittsburgh, PA 15213',
-  },
-];
+onMount(() => {
+  checkLogin(
+    async (u) => {
+      user = u;
+      firestore = await import('$lib/firestore');
+      emergencyContacts = await firestore.getEmergencyContacts(user.uid);
+    },
+    () => { goto('/login'); }
+  );
+});
+
 
 </script>
 
@@ -83,10 +81,10 @@ let emergencyContacts = [
             Phone: {emergencyContact['phone']}
           </ListItem>
           <ListItem>
-            Email: {emergencyContact['email']}
+            Email: {emergencyContact['email'].length == 0 ? 'N/A' : emergencyContact['email']}
           </ListItem>
           <ListItem>
-            Address: {emergencyContact['address']}
+            Address: {emergencyContact['address'].length == 0 ? 'N/A': emergencyContact['address']}
           </ListItem>
         </ListGroup>
       {/each}
