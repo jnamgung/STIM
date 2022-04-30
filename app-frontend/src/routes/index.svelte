@@ -1,6 +1,7 @@
 <script>
 	import { page } from '$app/stores';
 	import { Card, CardText, CardActions, Button, MaterialApp } from 'svelte-materialify';
+	import { goto } from '$app/navigation';
 </script>
   
 
@@ -11,14 +12,9 @@
 		  <br />
 		</div>
 		<CardActions>
-			<a sveltekit:prefetch href="/overstimulated">
-			<Button block class="red white-text">
+			<Button block class="red white-text" on:click={() => goto("/overstimulated")}>
 					Press this button if you're feeling overstimulated!
 			</Button>
-			</a>
-		</CardActions>
-		<CardActions>
-			
 		</CardActions>
 	  </Card>
 	

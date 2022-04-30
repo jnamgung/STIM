@@ -4,24 +4,36 @@
 
   let firestore = null;
 
-	var symptoms = [
+  var symptoms = [
 		{
 			'checked': false,
-			'symptom': "Symptom 1"
-		},
-		{
-			'checked': true,
-			'symptom': "Symptom 2"
+			'symptom': "Fidgeting and restlessness"
 		},
 		{
 			'checked': false,
-			'symptom': "Symptom 3"
+			'symptom': "Irritability and anger"
 		},
 		{
-			'checked': true,
-			'symptom': "Symptom 4"
+			'checked': false,
+			'symptom': "Digestive distress (cramps, nausea, vomiting)"
 		},
-	];
+		{
+			'checked': false,
+			'symptom': "Extreme Perspiration"
+		},
+		{
+			'checked': false,
+			'symptom': "Great difficulty in communication"
+		},
+		{
+			'checked': false,
+			'symptom': "Heightened sensitivity to bright lights"
+		},
+		{
+			'checked': false,
+			'symptom': "Heightened sensitivity to loud noises"
+		},
+    ];
   onMount(async () => {
     firestore = await import('$lib/firestore');
   });

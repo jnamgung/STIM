@@ -1,6 +1,8 @@
 <script>
   import { Card, CardText, CardActions, Button, MaterialApp, Checkbox, Row, Col, TextField } from 'svelte-materialify';
   import { onMount } from 'svelte';
+  import { goto } from '$app/navigation';
+
 
   let firestore = null;
 
@@ -8,19 +10,31 @@
   var actions = [
     {
       'checked': false,
-      'action': "Action 1"
-    },
-    {
-      'checked': true,
-      'action': "Action 2"
+      'action': "Move me to a quiet space"
     },
     {
       'checked': false,
-      'action': "Action 3"
+      'action': "Text/Call my emergency contacts"
     },
     {
-      'checked': true,
-      'action': "Action 4"
+      'checked': false,
+      'action': "Get me a glass of water"
+    },
+    {
+      'checked': false,
+      'action': "Walk me through guided breathing"
+    },
+    {
+      'checked': false,
+      'action': "Get out my fidget toy"
+    },
+    {
+      'checked': false,
+      'action': "Dim all of the lights"
+    },
+    {
+      'checked': false,
+      'action': "Call 911"
     },
   ];
   var customAction = "";
@@ -42,8 +56,7 @@
       <br />
     </div>
     <CardText>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit, qui quaerat
-      rerum incidunt nisi ducimus?
+      Select the actions you would like someone to take. You can also enter a custom action at the end.
     </CardText>
     <form on:submit|preventDefault={onSubmit}>
 			<div class="pl-4 pr-4 pb-3 pt-3">

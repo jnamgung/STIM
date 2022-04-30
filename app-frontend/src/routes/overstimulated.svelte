@@ -1,5 +1,6 @@
 <script>
 	import { Card, CardText, CardActions, Button, MaterialApp } from 'svelte-materialify';
+	import { goto } from '$app/navigation';
 </script>
   
 
@@ -10,12 +11,10 @@
 		  <br />
 		</div>
 		<CardActions>
-			<a sveltekit:prefetch href="/message">
-			<Button block>I am someone nearby.</Button>
-			</a>
+			<Button block on:click={() => goto("/message")} class="primary-color">I am someone nearby.</Button>
         </CardActions>
         <CardActions>
-            <Button block>I am a first responder.</Button>
+            <Button block class="primary-color">I am a first responder.</Button>
         </CardActions>
 	  </Card>
 	
