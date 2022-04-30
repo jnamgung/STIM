@@ -13,7 +13,7 @@
 				<Button block class="red white-text">High</Button>
 		</CardActions>
 		<CardActions>
-			<Button block class="yellow black-text">Medium</Button>
+			<Button block class="brown white-text">Medium</Button>
 		</CardActions>
 		<CardActions>
 			<Button block class="green white-text">Low</Button>
