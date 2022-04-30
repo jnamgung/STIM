@@ -1,5 +1,21 @@
-<script lang="ts">
+<script>
 	import { page } from '$app/stores';
+  import { Button } from 'svelte-materialify';
+  import { checkLogin, logout } from '$lib/auth.js';
+  import { onMount } from 'svelte';
+
+  let user = null;
+
+  onMount(() => {
+    checkLogin(
+      (u) => {
+        user = u;
+      },
+      () => {
+        user = null;
+      }
+    );
+  });
 </script>
 
 <header>
@@ -46,7 +62,9 @@
 	</nav>
 
 	<div class="corner">
-		<!-- TODO put something else here? github link? -->
+    {#if user != null}
+      <Button on:click={logout}>Log Out</Button>
+    {/if}
 	</div>
 </header>
 

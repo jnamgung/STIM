@@ -2,6 +2,7 @@
   import { Card, CardText, CardActions, Button, MaterialApp, Checkbox, Row, Col, TextField } from 'svelte-materialify';
   import { onMount } from 'svelte';
   import { goto } from '$app/navigation';
+  import { checkLogin } from '$lib/auth.js';
 
 
   let firestore = null;
@@ -40,6 +41,13 @@
   var customAction = "";
 
   onMount(async () => {
+    checkLogin(
+      (_) => {
+      },
+      () => {
+        goto('/login');
+      }
+    );
     firestore = await import('$lib/firestore');
   });
 
