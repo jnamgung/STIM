@@ -1,12 +1,11 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import logo from './svelte-logo.svg';
 </script>
 
 <header>
 	<div class="corner">
-		<a href="https://kit.svelte.dev">
-			<img src={logo} alt="SvelteKit" />
+		<a href="/">
+			<h2>STIM</h2>
 		</a>
 	</div>
 
@@ -30,13 +29,16 @@
 			</li>
 			<li class:active={$page.url.pathname === '/symptoms'}>
 				<a sveltekit:prefetch href="/symptoms">Symptoms</a>
-      </li>
+      		</li>
 			<li class:active={$page.url.pathname === '/emergency_contact'}>
 				<a sveltekit:prefetch href="/emergency_contact">Emergency Contact</a>
 			</li>
       <li class:active={$page.url.pathname === '/emergency_responders'}>
         <a sveltekit:prefetch href='/emergency_responders'>Emergency Responders</a>
       </li>
+			<li class:active={$page.url.pathname === '/first_responder'}>
+				<a sveltekit:prefetch href="/first_responder">First Responder</a>
+			</li>
 		</ul>
 		<svg viewBox="0 0 2 3" aria-hidden="true">
 			<path d="M0,0 L0,3 C0.5,3 0.5,3 1,2 L2,0 Z" />
@@ -55,8 +57,8 @@
 	}
 
 	.corner {
-		width: 3em;
-		height: 3em;
+		width: 10em;
+		height: 4em;
 	}
 
 	.corner a {
@@ -65,12 +67,6 @@
 		justify-content: center;
 		width: 100%;
 		height: 100%;
-	}
-
-	.corner img {
-		width: 2em;
-		height: 2em;
-		object-fit: contain;
 	}
 
 	nav {

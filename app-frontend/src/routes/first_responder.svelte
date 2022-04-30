@@ -4,8 +4,7 @@
 
   let firestore = null;
 
-	var severity_level = "High";
-	var symptoms = [
+  var symptoms = [
 		{
 			'checked': false,
 			'symptom': "Fidgeting and restlessness"
@@ -34,14 +33,12 @@
 			'checked': false,
 			'symptom': "Heightened sensitivity to loud noises"
 		},
-	];
-	var customSymptom = "";
+    ];
   onMount(async () => {
     firestore = await import('$lib/firestore');
   });
 
   function onSubmit(e) {
-	  console.log(customSymptom);
 	  console.log(symptoms);
   }
 </script>
@@ -49,11 +46,11 @@
 <MaterialApp>
 	<Card outlined style="max-width:2000px;">
 		<div class="pl-4 pr-4 pt-3">
-		  <span class="text-h5 mb-2">Symptoms I experience at severity level {severity_level}</span>
+		  <span class="text-h5 mb-2">Do I exhibit...</span>
 		  <br />
 		</div>
 		<CardText>
-			Select the symptoms you presonally face. You can also enter a custom symptom at the end.
+		  Choose each symptom that I exhibit right now:
 		</CardText>
 		<form on:submit|preventDefault={onSubmit}>
 			<div class="pl-4 pr-4 pb-3 pt-3">
@@ -64,12 +61,7 @@
 						</Col>
 					</Row>
 				{/each}
-				<Row class="align-self-center">
-					<Col class="align-self-center">
-						<TextField type="text" bind:value={customSymptom} placeholder="Add your own..."/>
-					</Col>
-				</Row>
-				<Button type="submit" block style="background-color:#bec6ff;">Submit</Button>
+				<Button type="submit" block style="background-color:#bec6ff;">Next</Button>
 			</div>
 		</form>
 	  </Card>

@@ -21,6 +21,23 @@
         },
     ];
 
+    let first_name = "Jane";
+    let last_name = "Doe";
+    let relation = "Mother";
+    let phone = "555-555-5555";
+    let email = "janedoe@gmail.com";
+    let address = "5000 Forbes Ave. Pittsburgh, PA 15213";
+
+    function handleSubmit(e) {
+      console.log(e);
+	    console.log(first_name);
+      console.log(last_name);
+      console.log(relation);
+      console.log(phone);
+      console.log(email);
+      console.log(address);
+    }
+
     onMount(async () => {
       firestore = await import('$lib/firestore');
     });
@@ -38,26 +55,28 @@
           If you elect to have bystanders contact your emergency contacts during a sensory overload,
           this individual will be contacted via text.
 		</CardText>
+    <form on:submit|preventDefault={handleSubmit}>
         <CardActions>
-            <TextField placeholder="Jane" outlined>First Name</TextField>
+            <TextField bind:value={first_name} placeholder="Jane" outlined>First Name</TextField>
         </CardActions>
         <CardActions>
-            <TextField placeholder="Doe" outlined>Last Name</TextField>
+            <TextField bind:value={last_name} placeholder="Doe" outlined>Last Name</TextField>
         </CardActions>
         <CardActions>
-            <TextField placeholder="Mother" outlined>Relation</TextField>
+            <TextField bind:value={relation} placeholder="Mother" outlined>Relation</TextField>
         </CardActions>
         <CardActions>
-            <TextField placeholder="555-555-5555" rules={phoneRules} outlined>Phone</TextField>
+            <TextField bind:value={phone} placeholder="555-555-5555" rules={phoneRules} outlined>Phone</TextField>
         </CardActions>
         <CardActions>
-            <TextField placeholder="janedoe@gmail.com" rules={emailRules} outlined>Email</TextField>
+            <TextField bind:value={email} placeholder="janedoe@gmail.com" rules={emailRules} outlined>Email</TextField>
         </CardActions>
         <CardActions>
-            <TextField placeholder="5000 Forbes Ave. Pittsburgh, PA 15213" outlined>Address</TextField>
+            <TextField bind:value={address} placeholder="5000 Forbes Ave. Pittsburgh, PA 15213" outlined>Address</TextField>
         </CardActions>
         <CardActions>
-            <Button block class="indigo white-text">Submit</Button>
+            <Button block class="indigo white-text" type="submit" on:click={() => alert('Emergency contact created!')}>Submit</Button>
         </CardActions>
+      </form>
     </Card>
   </MaterialApp>
