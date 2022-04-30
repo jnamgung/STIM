@@ -25,7 +25,7 @@ jobs:
     # from after "npm run build" till the next step i.e. "Firebase Deploy"
     - name: Build
       run: |
-        cd client
+        cd app-frontend
         npm i
         npm run build
         cd ..
