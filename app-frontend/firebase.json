@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "src",
+    "public": "src/routes",
     "ignore": [
       "firebase.json",
       "**/.*",
@@ -9,7 +9,7 @@
     "rewrites": [
       {
         "source": "**",
-        "destination": "/app.html"
+        "destination": "/index.svelte"
       }
     ]
   }
