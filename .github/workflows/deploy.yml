@@ -32,5 +32,6 @@ jobs:
     # using the token we created earlier
     - name: Firebase Deploy
       run: |
+        cd app-frontend
         sudo npm install -g firebase-tools
         firebase deploy --token ${{ secrets.FIREBASE_TOKEN }}
