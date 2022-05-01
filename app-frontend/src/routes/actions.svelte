@@ -87,7 +87,7 @@
 						<TextField type="text"bind:value={customAction} placeholder="Add your own..."/>
 					</Col>
 				</Row>
-				<Button type="submit" block style="background-color:#bec6ff;">Submit</Button>
+				<Button on:click={() => goto("/severity_levels")} type="submit" block style="background-color:#bec6ff;">Submit</Button>
 			</div>
 		</form>
     </Card>
