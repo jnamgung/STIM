@@ -49,6 +49,7 @@
       keepActions.map(([action, _]) => action),
     ).then(() => {
       alert('Actions updated!');
+      goto('/severity_levels');
     });
   }
 </script>
@@ -80,5 +81,4 @@
       </div>
     </form>
   </Card>
-
 </MaterialApp>

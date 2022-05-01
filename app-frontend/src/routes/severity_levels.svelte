@@ -20,13 +20,13 @@
 		  <br />
 		</div>
 		<CardActions>
-				<Button block class="red white-text">High</Button>
+				<Button on:click={() => goto("/symptoms")} block class="red white-text">High</Button>
 		</CardActions>
 		<CardActions>
-			<Button block class="brown white-text">Medium</Button>
+			<Button on:click={() => goto("/symptoms")} block class="amber white-text">Medium</Button>
 		</CardActions>
 		<CardActions>
-			<Button block class="green white-text">Low</Button>
+			<Button on:click={() => goto("/symptoms")} block class="green white-text">Low</Button>
 		</CardActions>
 	  </Card>
 

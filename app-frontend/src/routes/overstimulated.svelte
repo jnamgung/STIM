@@ -20,10 +20,10 @@
 		  <br />
 		</div>
 		<CardActions>
-			<Button block on:click={() => goto("/message")} class="primary-color">I am someone nearby.</Button>
+			<Button block on:click={() => goto("/bystander")} class="primary-color">I am someone nearby.</Button>
         </CardActions>
         <CardActions>
-            <Button block class="primary-color">I am a first responder.</Button>
+            <Button block on:click={() => goto("/emergency_responders")} class="primary-color">I am a first responder.</Button>
         </CardActions>
 	  </Card>
 

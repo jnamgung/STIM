@@ -86,7 +86,7 @@
 						<TextField type="text" bind:value={customSymptom} placeholder="Add your own..."/>
 					</Col>
 				</Row>
-				<Button type="submit" block style="background-color:#bec6ff;">Submit</Button>
+				<Button type="submit" on:click={() => goto("/actions")} block style="background-color:#bec6ff;">Submit</Button>
 			</div>
 		</form>
 	  </Card>

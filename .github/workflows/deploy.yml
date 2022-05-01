@@ -4,9 +4,9 @@ name: CI/CD
 # on push or pull request to the master branch
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
 
 # Jobs are a sequence of steps
 jobs:
@@ -25,16 +25,13 @@ jobs:
     # from after "npm run build" till the next step i.e. "Firebase Deploy"
     - name: Build
       run: |
-        cd client
+        cd app-frontend
         npm i
         npm run build
-        cd ..
-        cd functions
-        npm i
-
     # Install firebase tools and deploy to firebase
     # using the token we created earlier
     - name: Firebase Deploy
       run: |
+        cd app-frontend
         sudo npm install -g firebase-tools
         firebase deploy --token ${{ secrets.FIREBASE_TOKEN }}

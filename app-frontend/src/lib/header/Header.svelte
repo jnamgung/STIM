@@ -34,23 +34,8 @@
 			<li class:active={$page.url.pathname === '/severity_levels'}>
 				<a sveltekit:prefetch href="/severity_levels">Severity Level</a>
 			</li>
-			<li class:active={$page.url.pathname === '/overstimulated'}>
-				<a sveltekit:prefetch href="/overstimulated">Overstimulated</a>
-			</li>
-			<li class:active={$page.url.pathname === '/actions'}>
-				<a sveltekit:prefetch href="/actions">Actions</a>
-			</li>
-			<li class:active={$page.url.pathname === '/symptoms'}>
-				<a sveltekit:prefetch href="/symptoms">Symptoms</a>
-      		</li>
 			<li class:active={$page.url.pathname === '/emergency_contact'}>
 				<a sveltekit:prefetch href="/emergency_contact">Emergency Contact</a>
-			</li>
-      <li class:active={$page.url.pathname === '/emergency_responders'}>
-        <a sveltekit:prefetch href='/emergency_responders'>Emergency Responders</a>
-      </li>
-			<li class:active={$page.url.pathname === '/first_responder'}>
-				<a sveltekit:prefetch href="/first_responder">First Responder</a>
 			</li>
 		</ul>
 		<svg viewBox="0 0 2 3" aria-hidden="true">
