@@ -16,17 +16,9 @@ import { checkLogin } from '$lib/auth.js';
 let firestore = null;
 let user = null;
 let symptoms = {
-  'high': [
-    'symptom1',
-    'symptom2',
-    'symptom3',
-    'symptom4',
-  ],
-  'medium': [
-  ],
-  'low': [
-    'symptom1',
-  ],
+  'high': [],
+  'medium': [],
+  'low': [],
 };
 let emergencyContacts = [];
 
@@ -36,6 +28,9 @@ onMount(() => {
       user = u;
       firestore = await import('$lib/firestore');
       emergencyContacts = await firestore.getEmergencyContacts(user.uid);
+      symptoms['high'] = await firestore.getSymptoms(user.uid, 'high');
+      symptoms['medium'] = await firestore.getSymptoms(user.uid, 'medium');
+      symptoms['low'] = await firestore.getSymptoms(user.uid, 'low');
     },
     () => { goto('/login'); }
   );

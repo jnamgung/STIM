@@ -8,38 +8,17 @@
   let firestore = null;
   let user = null;
 
-  var severity_level = "High";
-  var actions = [
-    {
-      'checked': false,
-      'action': "Move me to a quiet space"
-    },
-    {
-      'checked': false,
-      'action': "Text/Call my emergency contacts"
-    },
-    {
-      'checked': false,
-      'action': "Get me a glass of water"
-    },
-    {
-      'checked': false,
-      'action': "Walk me through guided breathing"
-    },
-    {
-      'checked': false,
-      'action': "Get out my fidget toy"
-    },
-    {
-      'checked': false,
-      'action': "Dim all of the lights"
-    },
-    {
-      'checked': false,
-      'action': "Call 911"
-    },
-  ];
-  var customAction = "";
+  let severity_level = "High";
+  let actions = {
+    'Move me to a quiet space': false,
+    'Text/Call my emergency contacts': false,
+    'Get me a glass of water': false,
+    'Walk me through guided breathing': false,
+    'Get out my fidget toy': false,
+    'Dim all of the lights': false,
+    'Call emergency services (911)': false,
+  };
+  let customAction = "";
 
   onMount(() => {
     checkLogin(
@@ -47,6 +26,13 @@
         firestore = await import('$lib/firestore');
         user = u;
         // Load actions
+        const remoteActions = await firestore.getActions(
+          user.uid,
+          severity_level,
+        );
+        remoteActions.forEach((action) => {
+          actions[action] = true;
+        });
       },
       () => {
         goto('/login');
@@ -54,26 +40,18 @@
     );
   });
 
-  function onSubmit(e) {
-    const keepActions = actions.filter((m) => m['checked']);
-    Promise.all(keepActions.map(async (v) => {
-      await firestore.addAction(
-        user.uid,
-        v['action'],
-        severity_level
-      );
-    })).then(() => {
+  function onSubmit(_) {
+    if (user == null) return;
+    const keepActions = Object.entries(actions).filter(([_, val]) => val);
+    firestore.setActions(
+      user.uid,
+      severity_level,
+      keepActions.map(([action, _]) => action),
+    ).then(() => {
       alert('Actions updated!');
     });
   }
 </script>
-
-<style>
-  .themed-checkbox :active {
-    background-color: black;
-    color: black;
-  }
-</style>
 
 <MaterialApp>
   <Card outlined style="max-width:2000px;">
@@ -85,22 +63,22 @@
       Select the actions you would like someone to take. You can also enter a custom action at the end.
     </CardText>
     <form on:submit|preventDefault={onSubmit}>
-			<div class="pl-4 pr-4 pb-3 pt-3">
-				{#each actions as action}
-					<Row class="align-self-center">
-						<Col class="align-self-center">
-							<Checkbox color="#bec6ff" bind:checked={action.checked} value={action.action}>{action.action}</Checkbox>
-						</Col>
-					</Row>
-				{/each}
-				<Row class="align-self-center">
-					<Col class="align-self-center">
-						<TextField type="text"bind:value={customAction} placeholder="Add your own..."/>
-					</Col>
-				</Row>
-				<Button type="submit" block style="background-color:#bec6ff;">Submit</Button>
-			</div>
-		</form>
-    </Card>
+      <div class="pl-4 pr-4 pb-3 pt-3">
+        {#each Object.keys(actions) as action}
+          <Row class="align-self-center">
+            <Col class="align-self-center">
+              <Checkbox color="#bec6ff" bind:checked={actions[action]} value={action}>{action}</Checkbox>
+            </Col>
+          </Row>
+        {/each}
+        <Row class="align-self-center">
+          <Col class="align-self-center">
+            <TextField type="text"bind:value={customAction} placeholder="Add your own..."/>
+          </Col>
+        </Row>
+        <Button type="submit" block style="background-color:#bec6ff;">Submit</Button>
+      </div>
+    </form>
+  </Card>
 
 </MaterialApp>

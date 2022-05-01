@@ -1,8 +1,11 @@
 import {
   addDoc,
   collection,
+  deleteDoc,
+  doc,
   getDocs,
   query,
+  setDoc,
   where,
 } from 'firebase/firestore';
 
@@ -40,16 +43,42 @@ export const getEmergencyContacts = async (uid) => {
   return result;
 }
 
-export const addAction = async (
+export const setActions = async (
   user_id,
-  action,
-  severity
+  severity,
+  actions,
 ) => {
-  return addDoc(collection(db, 'actions'), {
-    user_id: user_id,
-    action: action,
-    severity: severity.toLowerCase(),
-  });
+  severity = severity.toLowerCase();
+  const querySnapshot = await getDocs(query(
+    collection(db, 'actions'),
+    where('user_id', '==', user_id),
+    where('severity', '==', severity),
+  ));
+  let ids = [];
+  querySnapshot.forEach((doc) => ids.push(doc.id));
+  switch (ids.length) {
+    case 0:
+      return addDoc(collection(db, 'actions'), {
+        'user_id': user_id,
+        'severity': severity,
+        'actions': actions,
+      });
+    case 1:
+      return setDoc(doc(db, 'actions', ids[0]), {
+        'user_id': user_id,
+        'severity': severity,
+        'actions': actions,
+      });
+    default:
+      ids.forEach((id) => {
+        deleteDoc(doc(db, 'actions', id));
+      });
+      return addDoc(collection(db, 'actions'), {
+        'user_id': user_id,
+        'severity': severity,
+        'actions': actions,
+      });
+  }
 }
 
 export const getActions = async (
@@ -62,33 +91,88 @@ export const getActions = async (
   if (severity === 'all') {
     querySnapshot = await getDocs(query(
       collection(db, 'actions'),
-      where('user_id', '==', uid),
+      where('user_id', '==', user_id),
     ));
   }
   else {
     querySnapshot = await getDocs(query(
       collection(db, 'actions'),
-      where('user_id', '==', uid),
+      where('user_id', '==', user_id),
       where('severity', '==', severity),
     ));
   }
   querySnapshot.forEach((doc) => {
-    result.push(doc.data());
+    const actions = doc.data()['actions'];
+    actions.forEach((action) => {
+      result.push(action);
+    });
   });
   return result;
 }
 
-export const addSymptom = async (
+export const setSymptoms = async (
   user_id,
-  symptom,
-  severity
+  severity,
+  symptoms,
 ) => {
-  return addDoc(collection(db, 'symptoms'), {
-    user_id: user_id,
-    symptom: symptom,
-    severity: severity
-  });
+  severity = severity.toLowerCase();
+  const querySnapshot = await getDocs(query(
+    collection(db, 'symptoms'),
+    where('user_id', '==', user_id),
+    where('severity', '==', severity),
+  ));
+  let ids = [];
+  querySnapshot.forEach((doc) => ids.push(doc.id));
+  switch (ids.length) {
+    case 0:
+      return addDoc(collection(db, 'symptoms'), {
+        'user_id': user_id,
+        'severity': severity,
+        'symptoms': symptoms,
+      });
+    case 1:
+      return setDoc(doc(db, 'symptoms', ids[0]), {
+        'user_id': user_id,
+        'severity': severity,
+        'symptoms': symptoms,
+      });
+    default:
+      ids.forEach((id) => {
+        deleteDoc(doc(db, 'symptoms', id));
+      });
+      return addDoc(collection(db, 'symptoms'), {
+        'user_id': user_id,
+        'severity': severity,
+        'actions': symptoms,
+      });
+  }
 }
 
-
-
+export const getSymptoms = async (
+  user_id,
+  severity='all',
+) => {
+  let result = [];
+  let querySnapshot = null;
+  severity = severity.toLowerCase();
+  if (severity === 'all') {
+    querySnapshot = await getDocs(query(
+      collection(db, 'symptoms'),
+      where('user_id', '==', user_id),
+    ));
+  }
+  else {
+    querySnapshot = await getDocs(query(
+      collection(db, 'symptoms'),
+      where('user_id', '==', user_id),
+      where('severity', '==', severity),
+    ));
+  }
+  querySnapshot.forEach((doc) => {
+    const symptoms = doc.data()['symptoms'];
+    symptoms.forEach((symptom) => {
+      result.push(symptom);
+    });
+  });
+  return result;
+}
