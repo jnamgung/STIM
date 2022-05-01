@@ -12,37 +12,30 @@ import { onMount } from 'svelte';
 import { goto } from '$app/navigation';
 import { checkLogin } from '$lib/auth.js';
 
+
+let firestore = null;
+let user = null;
+let symptoms = {
+  'high': [],
+  'medium': [],
+  'low': [],
+};
+let emergencyContacts = [];
+
 onMount(() => {
   checkLogin(
-    (_) => {},
+    async (u) => {
+      user = u;
+      firestore = await import('$lib/firestore');
+      emergencyContacts = await firestore.getEmergencyContacts(user.uid);
+      symptoms['high'] = await firestore.getSymptoms(user.uid, 'high');
+      symptoms['medium'] = await firestore.getSymptoms(user.uid, 'medium');
+      symptoms['low'] = await firestore.getSymptoms(user.uid, 'low');
+    },
     () => { goto('/login'); }
   );
 });
 
-let symptoms = {
-  'high': [
-    'symptom1',
-    'symptom2',
-    'symptom3',
-    'symptom4',
-  ],
-  'medium': [
-  ],
-  'low': [
-    'symptom1',
-  ],
-};
-
-let emergencyContacts = [
-  {
-    'first_name': 'Jane',
-    'last_name': 'Doe',
-    'relation': 'Mother',
-    'phone': '555-555-5555',
-    'email': 'janedoe@gmail.com',
-    'address': '5000 Forbes Ave. Pittsburgh, PA 15213',
-  },
-];
 
 </script>
 
@@ -83,10 +76,10 @@ let emergencyContacts = [
             Phone: {emergencyContact['phone']}
           </ListItem>
           <ListItem>
-            Email: {emergencyContact['email']}
+            Email: {emergencyContact['email'].length == 0 ? 'N/A' : emergencyContact['email']}
           </ListItem>
           <ListItem>
-            Address: {emergencyContact['address']}
+            Address: {emergencyContact['address'].length == 0 ? 'N/A': emergencyContact['address']}
           </ListItem>
         </ListGroup>
       {/each}

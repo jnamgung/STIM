@@ -16,50 +16,50 @@
   import { checkLogin } from '$lib/auth.js';
 
   let firestore = null;
+  let user = null;
 
-	var severity_level = "High";
-	var symptoms = [
-		{
-			'checked': false,
-			'symptom': "Fidgeting and restlessness"
-		},
-		{
-			'checked': false,
-			'symptom': "Irritability and anger"
-		},
-		{
-			'checked': false,
-			'symptom': "Digestive distress (cramps, nausea, vomiting)"
-		},
-		{
-			'checked': false,
-			'symptom': "Extreme Perspiration"
-		},
-		{
-			'checked': false,
-			'symptom': "Great difficulty in communication"
-		},
-		{
-			'checked': false,
-			'symptom': "Heightened sensitivity to bright lights"
-		},
-		{
-			'checked': false,
-			'symptom': "Heightened sensitivity to loud noises"
-		},
-	];
+	let severity_level = "High";
+  let symptoms = {
+    'Fidgeting and restlessness': false,
+    'Irritability and anger': false,
+    'Digestive distress (cramps, nausea, vomiting)': false,
+    'Extreme perspiration': false,
+    'Great difficulty in communication': false,
+    'Heightened sensitivity to bright lights': false,
+    'Heightened sensitivity to loud noises': false,
+  };
 	var customSymptom = "";
+
   onMount(async () => {
     checkLogin(
-      (_) => {},
-      () => { goto('/login'); }
+      async (u) => {
+        firestore = await import('$lib/firestore');
+        user = u;
+        // Load symptoms
+        const remoteSymptoms = await firestore.getSymptoms(
+          user.uid,
+          severity_level,
+        );
+        remoteSymptoms.forEach((symptom) => {
+          symptoms[symptom] = true;
+        });
+      },
+      () => {
+        goto('/login');
+      }
     );
-    firestore = await import('$lib/firestore');
   });
 
-  function onSubmit(e) {
-	  console.log(customSymptom);
-	  console.log(symptoms);
+  function onSubmit(_) {
+    if (user == null) return;
+    const keepSymptoms = Object.entries(symptoms).filter(([_, val]) => val);
+    firestore.setSymptoms(
+      user.uid,
+      severity_level,
+      keepSymptoms.map(([symptom, _]) => symptom),
+    ).then(() => {
+      alert('Symptoms updated!');
+    });
   }
 </script>
 
@@ -74,10 +74,10 @@
 		</CardText>
 		<form on:submit|preventDefault={onSubmit}>
 			<div class="pl-4 pr-4 pb-3 pt-3">
-				{#each symptoms as symptom}
+				{#each Object.keys(symptoms) as symptom}
 					<Row class="align-self-center">
 						<Col class="align-self-center">
-							<Checkbox color="#bec6ff" bind:checked={symptom.checked} value={symptom.symptom}>{symptom.symptom}</Checkbox>
+							<Checkbox color="#bec6ff" bind:checked={symptoms[symptom]} value={symptom}>{symptom}</Checkbox>
 						</Col>
 					</Row>
 				{/each}

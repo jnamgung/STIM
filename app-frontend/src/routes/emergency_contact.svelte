@@ -5,6 +5,7 @@
     import { checkLogin } from '$lib/auth.js';
 
     let firestore = null;
+    let user = null;
 
     const phoneRules = [
     (v) => !!v || 'Required',
@@ -23,29 +24,40 @@
         },
     ];
 
-    let first_name = "Jane";
-    let last_name = "Doe";
-    let relation = "Mother";
-    let phone = "555-555-5555";
-    let email = "janedoe@gmail.com";
-    let address = "5000 Forbes Ave. Pittsburgh, PA 15213";
+    let first_name = "";
+    let last_name = "";
+    let relation = "";
+    let phone = "";
+    let email = "";
+    let address = "";
+    let phone_error = false;
+    let email_error = false;
 
     function handleSubmit(e) {
-      console.log(e);
-	    console.log(first_name);
-      console.log(last_name);
-      console.log(relation);
-      console.log(phone);
-      console.log(email);
-      console.log(address);
+      if (phone_error || email_error) return;
+      if (firestore == null) return;
+
+      firestore.addEmergencyContact(
+        user.uid,
+        first_name,
+        last_name,
+        relation,
+        phone,
+        email,
+        address
+      ).then(() => {
+        alert('Emergency contact created!');
+      });
     }
 
-    onMount(async () => {
+    onMount(() => {
       checkLogin(
-        (_) => {},
+        async (u) => {
+          user = u;
+          firestore = await import('$lib/firestore');
+        },
         () => { goto('/login'); }
       );
-      firestore = await import('$lib/firestore');
     });
 
 </script>
@@ -63,25 +75,25 @@
 		</CardText>
     <form on:submit|preventDefault={handleSubmit}>
         <CardActions>
-            <TextField bind:value={first_name} placeholder="Jane" outlined>First Name</TextField>
+            <TextField bind:value={first_name} placeholder="Jane" outlined required>First Name</TextField>
         </CardActions>
         <CardActions>
-            <TextField bind:value={last_name} placeholder="Doe" outlined>Last Name</TextField>
+            <TextField bind:value={last_name} placeholder="Doe" outlined required>Last Name</TextField>
         </CardActions>
         <CardActions>
-            <TextField bind:value={relation} placeholder="Mother" outlined>Relation</TextField>
+            <TextField bind:value={relation} placeholder="Mother" outlined required>Relation</TextField>
         </CardActions>
         <CardActions>
-            <TextField bind:value={phone} placeholder="555-555-5555" rules={phoneRules} outlined>Phone</TextField>
+            <TextField bind:value={phone} bind:error={phone_error} placeholder="555-555-5555" rules={phoneRules} outlined required>Phone</TextField>
         </CardActions>
         <CardActions>
-            <TextField bind:value={email} placeholder="janedoe@gmail.com" rules={emailRules} outlined>Email</TextField>
+            <TextField bind:value={email} bind:error={email_error} placeholder="janedoe@gmail.com" rules={emailRules} outlined>Email</TextField>
         </CardActions>
         <CardActions>
             <TextField bind:value={address} placeholder="5000 Forbes Ave. Pittsburgh, PA 15213" outlined>Address</TextField>
         </CardActions>
         <CardActions>
-            <Button block class="indigo white-text" type="submit" on:click={() => alert('Emergency contact created!')}>Submit</Button>
+            <Button block class="indigo white-text" type="submit">Submit</Button>
         </CardActions>
       </form>
     </Card>
