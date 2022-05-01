@@ -9,7 +9,7 @@ import {
 const provider = new GoogleAuthProvider();
 
 export function login() {
-  signInWithRedirect(auth, provider);
+  signInWithPopup(auth, provider);
 }
 
 export function logout() {
