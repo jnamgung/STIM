@@ -67,7 +67,7 @@
 						</Col>
 					</Row>
 				{/each}
-				<Button type="submit" block style="background-color:#bec6ff;">Next</Button>
+				<Button type="submit" on:click={() => goto("/message")} block style="background-color:#bec6ff;">Next</Button>
 			</div>
 		</form>
 	  </Card>
