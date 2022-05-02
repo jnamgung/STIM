@@ -10,8 +10,6 @@
   let firestore = null;
   let user = null;
   
-
-  // let severity_level = "High";
   let actions = {
     'Move me to a quiet space': false,
     'Text/Call my emergency contacts': false,
