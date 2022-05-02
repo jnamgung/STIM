@@ -3,6 +3,8 @@
   import { goto } from '$app/navigation';
   import { onMount } from 'svelte';
   import { checkLogin } from '$lib/auth.js';
+  import { severity_level } from './_stores.js'
+  import { get } from 'svelte/store'
 
   onMount(() => {
     checkLogin(
@@ -20,13 +22,13 @@
 		  <br />
 		</div>
 		<CardActions>
-				<Button on:click={() => goto("/symptoms")} block class="red white-text">High</Button>
+				<Button on:click={() => {severity_level.set("High"); goto("/symptoms")}} block class="red white-text">High</Button>
 		</CardActions>
 		<CardActions>
-			<Button on:click={() => goto("/symptoms")} block class="amber white-text">Medium</Button>
+			<Button on:click={() => {severity_level.set("Medium"); goto("/symptoms")}} block class="amber white-text">Medium</Button>
 		</CardActions>
 		<CardActions>
-			<Button on:click={() => goto("/symptoms")} block class="green white-text">Low</Button>
+			<Button on:click={() => {severity_level.set("Low"); goto("/symptoms")}} block class="green white-text">Low</Button>
 		</CardActions>
 	  </Card>
 
