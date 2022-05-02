@@ -3,12 +3,13 @@
   import { onMount } from 'svelte';
   import { goto } from '$app/navigation';
   import { checkLogin } from '$lib/auth.js';
+  import { severity_level } from './_stores.js';
+  import { get } from 'svelte/store';
 
 
   let firestore = null;
   let user = null;
-
-  let severity_level = "High";
+  
   let actions = {
     'Move me to a quiet space': false,
     'Text/Call my emergency contacts': false,
@@ -28,7 +29,7 @@
         // Load actions
         const remoteActions = await firestore.getActions(
           user.uid,
-          severity_level,
+          get(severity_level),
         );
         remoteActions.forEach((action) => {
           actions[action] = true;
@@ -45,7 +46,7 @@
     const keepActions = Object.entries(actions).filter(([_, val]) => val);
     firestore.setActions(
       user.uid,
-      severity_level,
+      get(severity_level),
       keepActions.map(([action, _]) => action),
     ).then(() => {
       alert('Actions updated!');
@@ -57,7 +58,7 @@
 <MaterialApp>
   <Card outlined style="max-width:2000px;">
     <div class="pl-4 pr-4 pt-3">
-      <span class="text-h5 mb-2">Actions other can take to help at severity level {severity_level}</span>
+      <span class="text-h5 mb-2">Actions other can take to help at severity level {get(severity_level)}</span>
       <br />
     </div>
     <CardText>
