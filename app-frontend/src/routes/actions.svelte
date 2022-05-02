@@ -1,5 +1,14 @@
 <script>
-  import { Card, CardText, CardActions, Button, MaterialApp, Checkbox, Row, Col, TextField } from 'svelte-materialify';
+  import {
+    Button,
+    Card,
+    CardText,
+    Checkbox,
+    Col,
+    MaterialApp,
+    Row,
+    TextField
+  } from 'svelte-materialify';
   import { onMount } from 'svelte';
   import { goto } from '$app/navigation';
   import { checkLogin } from '$lib/auth.js';
@@ -9,7 +18,7 @@
 
   let firestore = null;
   let user = null;
-  
+
   let actions = {
     'Move me to a quiet space': false,
     'Text/Call my emergency contacts': false,
