@@ -3,7 +3,6 @@
   import { onMount } from 'svelte';
   import { goto } from '$app/navigation';
   import { checkLogin } from '$lib/auth.js';
-import { add_location } from 'svelte/internal';
 
 
   let firestore = null;
