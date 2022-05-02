@@ -53,6 +53,13 @@
       goto('/severity_levels');
     });
   }
+
+  function addAction() {
+    if (customAction != null && customAction.trim() != "") {
+      actions[customAction] = true;
+      customAction = "";
+    }
+  }
 </script>
 
 <MaterialApp>
@@ -75,7 +82,10 @@
         {/each}
         <Row class="align-self-center">
           <Col class="align-self-center">
-            <TextField type="text"bind:value={customAction} placeholder="Add your own..."/>
+            <TextField type="text" bind:value={customAction} placeholder="Custom action..."/>
+          </Col>
+          <Col class="align-self-center">
+            <Button on:click={() => addAction()}  style="background-color:#bec6ff;">&plus; Add</Button>
           </Col>
         </Row>
         <Button type="submit" block style="background-color:#bec6ff;">Submit</Button>

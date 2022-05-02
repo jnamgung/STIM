@@ -62,6 +62,13 @@
       alert('Symptoms updated!');
     });
   }
+
+  function addAction() {
+	if (customSymptom != null && customSymptom.trim() != "") {
+		symptoms[customSymptom] = true;
+    	customSymptom = "";
+	}
+  }
 </script>
 
 <MaterialApp>
@@ -86,8 +93,11 @@
 					<Col class="align-self-center">
 						<TextField type="text" bind:value={customSymptom} placeholder="Add your own..."/>
 					</Col>
+					<Col class="align-self-center">
+						<Button on:click={() => addAction()}  style="background-color:#bec6ff;">&plus; Add</Button>
+					</Col>
 				</Row>
-				<Button type="submit" on:click={() => goto("/actions")} block style="background-color:#bec6ff;">Submit</Button>
+				<Button type="submit" on:click={() => goto("/actions")} block style="background-color:#bec6ff;">Next</Button>
 			</div>
 		</form>
 	  </Card>
