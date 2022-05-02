@@ -3,6 +3,8 @@
   import { onMount } from 'svelte';
   import { checkLogin } from '$lib/auth.js';
   import { goto } from '$app/navigation';
+  import { severity_level } from './_stores.js';
+  import { get } from 'svelte/store';
 
   let firestore = null;
 
@@ -43,10 +45,6 @@
     );
     firestore = await import('$lib/firestore');
   });
-
-  function onSubmit(e) {
-	  console.log(symptoms);
-  }
 </script>
 
 <MaterialApp>
@@ -58,7 +56,6 @@
 		<CardText>
 		  Choose each symptom that I exhibit right now:
 		</CardText>
-		<form on:submit|preventDefault={onSubmit}>
 			<div class="pl-4 pr-4 pb-3 pt-3">
 				{#each symptoms as symptom}
 					<Row class="align-self-center">
@@ -67,9 +64,9 @@
 						</Col>
 					</Row>
 				{/each}
-				<Button type="submit" on:click={() => goto("/message")} block style="background-color:#bec6ff;">Next</Button>
+				<!-- replace "Low" with appropriate sev level -->
+				<Button on:click={() => {severity_level.set("Low");goto("/message")}} block style="background-color:#bec6ff;">Next</Button>
 			</div>
-		</form>
 	  </Card>
 
 </MaterialApp>
