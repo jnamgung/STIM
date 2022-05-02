@@ -1,3 +1,3 @@
-import { writable } from 'svelte/store'
+import { writable } from 'svelte/store';
 
-export const severity_level = writable('')
+export const severity_level = writable('');

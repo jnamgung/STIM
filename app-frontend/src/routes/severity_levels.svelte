@@ -3,8 +3,8 @@
   import { goto } from '$app/navigation';
   import { onMount } from 'svelte';
   import { checkLogin } from '$lib/auth.js';
-  import { severity_level } from './_stores.js'
-  import { get } from 'svelte/store'
+  import { severity_level } from './_stores.js';
+  import { get } from 'svelte/store';
 
   onMount(() => {
     checkLogin(

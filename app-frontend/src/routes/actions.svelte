@@ -3,8 +3,8 @@
   import { onMount } from 'svelte';
   import { goto } from '$app/navigation';
   import { checkLogin } from '$lib/auth.js';
-  import { severity_level } from './_stores.js'
-  import { get } from 'svelte/store'
+  import { severity_level } from './_stores.js';
+  import { get } from 'svelte/store';
 
 
   let firestore = null;
